@@ -1,0 +1,128 @@
+# Node.js / Next.js Frontend
+node_modules/
+.next/
+out/
+.cache/
+dist/
+build/
+coverage/
+.turbo/
+.swc/
+
+# Python Backend
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Poetry
+poetry.lock
+.poetry/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.vercel
+
+# Supabase
+.branches/
+.temp/
+supabase/.temp/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# IDE - IntelliJ/PyCharm/WebStorm
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Debug files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Testing
+/coverage
+/.nyc_output
+
+# Recordings & Media
+*.mp3
+*.wav
+*.mp4
+*.m4a
+*.webm
+recordings/
+
+# Misc
+.eslintcache
+.stylelintcache
+.vercel
+
+# Local Netlify folder
+.netlify
+
+# Docker
+docker-compose.override.yml
+
+# Railway
+.railway/
+
+# Fly.io
+fly.toml

@@ -194,14 +194,14 @@ CREATE TABLE products (
 - [ ] Add quality assessment scoring
 - [ ] Implement customer feedback collection
 
-| Task                 | Owner | Status      | Due    |
-| -------------------- | ----- | ----------- | ------ |
-| Open-Source LLM Setup|       | Not Started | May 14 |
-| FastAPI Backend Setup|       | Not Started | May 15 |
-| Text Chat Interface  |       | Not Started | May 16 |
-| LLM Integration      |       | Not Started | May 17 |
-| Conversation Mgmt UI |       | Not Started | May 19 |
-| Post-Conv. Processing|       | Not Started | May 20 |
+| Task                  | Owner | Status      | Due    |
+| --------------------- | ----- | ----------- | ------ |
+| Open-Source LLM Setup |       | Not Started | May 14 |
+| FastAPI Backend Setup |       | Not Started | May 15 |
+| Text Chat Interface   |       | Not Started | May 16 |
+| LLM Integration       |       | Not Started | May 17 |
+| Conversation Mgmt UI  |       | Not Started | May 19 |
+| Post-Conv. Processing |       | Not Started | May 20 |
 
 **Week 2 Milestone**: Functional text-based conversation with AI agent and basic analysis
 
@@ -225,7 +225,7 @@ class ConversationManager:
         """Initialize conversation manager for a specific conversation"""
         self.conversation_id = conversation_id
         self.llm = Ollama(
-            model="llama3", # Or "mixtral" depending on performance needs
+            model="llama3.2", # Or "mixtral" depending on performance needs
             url="http://localhost:11434",  # Adjust for your Ollama setup
             temperature=0.2,
         )
@@ -370,14 +370,14 @@ class ConversationManager:
 - [ ] Add follow-up task creation
 - [ ] Implement email/notification formatting
 
-| Task                  | Owner | Status      | Due    |
-| --------------------- | ----- | ----------- | ------ |
-| Browser Voice Interface|      | Not Started | May 21 |
-| Speech Processing     |       | Not Started | May 22 |
-| Conversation Scenarios|       | Not Started | May 23 |
-| Agent Dashboard       |       | Not Started | May 24 |
-| Knowledge Base        |       | Not Started | May 26 |
-| Conversation Summary  |       | Not Started | May 27 |
+| Task                    | Owner | Status      | Due    |
+| ----------------------- | ----- | ----------- | ------ |
+| Browser Voice Interface |       | Not Started | May 21 |
+| Speech Processing       |       | Not Started | May 22 |
+| Conversation Scenarios  |       | Not Started | May 23 |
+| Agent Dashboard         |       | Not Started | May 24 |
+| Knowledge Base          |       | Not Started | May 26 |
+| Conversation Summary    |       | Not Started | May 27 |
 
 **Week 3 Milestone**: Functional voice-based conversation with intelligent agent responses
 
@@ -407,7 +407,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 }) => {
   const recognitionRef = useRef<any>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  
+
   // Initialize Web Speech API
   useEffect(() => {
     // Check browser support
@@ -415,53 +415,53 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       setErrorMessage('Speech recognition is not supported in this browser.');
       return;
     }
-    
+
     // Initialize speech recognition
     const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
     recognitionRef.current = new SpeechRecognition();
-    
+
     // Configure
     recognitionRef.current.continuous = true;
     recognitionRef.current.interimResults = true;
     recognitionRef.current.lang = 'en-ZA'; // South African English
-    
+
     // Setup event handlers
     recognitionRef.current.onresult = (event: any) => {
       const transcript = Array.from(event.results)
         .map((result: any) => result[0])
         .map((result: any) => result.transcript)
         .join('');
-        
+
       // Only send completed transcripts
       if (event.results[0].isFinal) {
         onTranscript(transcript);
       }
     };
-    
+
     recognitionRef.current.onerror = (event: any) => {
       console.error('Speech recognition error', event);
       setErrorMessage('Error with speech recognition: ' + event.error);
       setIsListening(false);
     };
-    
+
     recognitionRef.current.onend = () => {
       if (isListening) {
         // Restart if it ended unexpectedly while we wanted to listen
         recognitionRef.current.start();
       }
     };
-    
+
     return () => {
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
     };
   }, []);
-  
+
   // Toggle listening status
   useEffect(() => {
     if (!recognitionRef.current) return;
-    
+
     if (isListening) {
       try {
         recognitionRef.current.start();
@@ -472,21 +472,21 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       recognitionRef.current.stop();
     }
   }, [isListening]);
-  
+
   // Text-to-speech for agent responses
   useEffect(() => {
     if (!agentResponse || !('speechSynthesis' in window)) return;
-    
+
     const speak = () => {
       if (isListening) {
         // Stop listening while speaking
         recognitionRef.current?.stop();
         setIsListening(false);
       }
-      
+
       const utterance = new SpeechSynthesisUtterance(agentResponse);
       utterance.lang = 'en-ZA';
-      
+
       utterance.onend = () => {
         // Resume listening after speaking
         onSpeakComplete();
@@ -494,13 +494,13 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
           setIsListening(true);
         }
       };
-      
+
       speechSynthesis.speak(utterance);
     };
-    
+
     speak();
   }, [agentResponse]);
-  
+
   return (
     <div className="flex flex-col space-y-4">
       {errorMessage && (
@@ -508,9 +508,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
           {errorMessage}
         </div>
       )}
-      
+
       <div className="flex justify-center">
-        <Button 
+        <Button
           onClick={() => setIsListening(!isListening)}
           className={`rounded-full w-16 h-16 flex items-center justify-center ${
             isListening ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
@@ -523,7 +523,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
           )}
         </Button>
       </div>
-      
+
       <div className="text-center text-sm text-gray-500">
         {isListening ? 'Listening...' : 'Click to speak'}
       </div>
@@ -599,14 +599,14 @@ const StopIcon = () => (/* SVG icon */);
 - [ ] Create backup and recovery plan
 - [ ] Execute production deployment
 
-| Task                  | Owner | Status      | Due    |
-| --------------------- | ----- | ----------- | ------ |
-| User Testing          |       | Not Started | May 28 |
-| (Opt) Asterisk Setup  |       | Not Started | May 29 |
-| Advanced Analytics    |       | Not Started | May 30 |
-| Email/Notifications   |       | Not Started | May 31 |
-| Error Handling        |       | Not Started | June 2 |
-| Deployment            |       | Not Started | June 3 |
+| Task                 | Owner | Status      | Due    |
+| -------------------- | ----- | ----------- | ------ |
+| User Testing         |       | Not Started | May 28 |
+| (Opt) Asterisk Setup |       | Not Started | May 29 |
+| Advanced Analytics   |       | Not Started | May 30 |
+| Email/Notifications  |       | Not Started | May 31 |
+| Error Handling       |       | Not Started | June 2 |
+| Deployment           |       | Not Started | June 3 |
 
 **Week 4 Milestone**: Production-ready MVP deployed for initial user testing
 
@@ -629,11 +629,11 @@ export const AnalyticsDashboard = () => {
   const [convOutcomes, setConvOutcomes] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const supabase = useSupabaseClient();
-  
+
   useEffect(() => {
     const fetchAnalytics = async () => {
       setIsLoading(true);
-      
+
       // Fetch conversation volume data
       const { data: volumeData } = await supabase
         .from('conversations')
@@ -644,9 +644,9 @@ export const AnalyticsDashboard = () => {
           const grouped = groupByDay(result.data || []);
           return { data: grouped };
         });
-      
+
       setConvVolume(volumeData || []);
-      
+
       // Fetch conversation duration data
       const { data: durationData } = await supabase
         .from('conversations')
@@ -657,9 +657,9 @@ export const AnalyticsDashboard = () => {
           const avgByDay = calculateAvgDurationByDay(result.data || []);
           return { data: avgByDay };
         });
-      
+
       setConvDurations(durationData || []);
-      
+
       // Fetch conversation outcome data
       const { data: outcomeData } = await supabase
         .from('conversation_notes')
@@ -670,19 +670,19 @@ export const AnalyticsDashboard = () => {
           const grouped = groupByPriority(result.data || []);
           return { data: grouped };
         });
-      
+
       setConvOutcomes(outcomeData || []);
-      
+
       setIsLoading(false);
     };
-    
+
     fetchAnalytics();
   }, [timeframe, supabase]);
-  
+
   // Helper functions for data processing
   const getDateForTimeframe = (frame: string) => {
     const now = new Date();
-    switch(frame) {
+    switch (frame) {
       case 'day':
         return new Date(now.setDate(now.getDate() - 1)).toISOString();
       case 'week':
@@ -693,7 +693,7 @@ export const AnalyticsDashboard = () => {
         return new Date(now.setDate(now.getDate() - 7)).toISOString();
     }
   };
-  
+
   const groupByDay = (data: any[]) => {
     // Implementation to group conversations by day
     return [
@@ -706,7 +706,7 @@ export const AnalyticsDashboard = () => {
       { period: 'Sun', count: 8 },
     ];
   };
-  
+
   const calculateAvgDurationByDay = (data: any[]) => {
     // Implementation to calculate average duration by day
     return [
@@ -719,7 +719,7 @@ export const AnalyticsDashboard = () => {
       { period: 'Sun', average_duration: 6 },
     ];
   };
-  
+
   const groupByPriority = (data: any[]) => {
     // Implementation to group by priority
     return [
@@ -728,21 +728,21 @@ export const AnalyticsDashboard = () => {
       { outcome: 'High', count: 10 },
     ];
   };
-  
+
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold tracking-tight">Conversation Analytics</h2>
-        <Tabs defaultValue="week" onValueChange={(v) => setTimeframe(v as any)}>
+    <div className='space-y-4'>
+      <div className='flex justify-between items-center'>
+        <h2 className='text-3xl font-bold tracking-tight'>Conversation Analytics</h2>
+        <Tabs defaultValue='week' onValueChange={v => setTimeframe(v as any)}>
           <TabsList>
-            <TabsTrigger value="day">Today</TabsTrigger>
-            <TabsTrigger value="week">This Week</TabsTrigger>
-            <TabsTrigger value="month">This Month</TabsTrigger>
+            <TabsTrigger value='day'>Today</TabsTrigger>
+            <TabsTrigger value='week'>This Week</TabsTrigger>
+            <TabsTrigger value='month'>This Month</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
-      
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+      <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
         <Card>
           <CardHeader>
             <CardTitle>Conversation Volume</CardTitle>
@@ -750,18 +750,13 @@ export const AnalyticsDashboard = () => {
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <div className="h-[300px] flex items-center justify-center">Loading...</div>
+              <div className='h-[300px] flex items-center justify-center'>Loading...</div>
             ) : (
-              <BarChart 
-                data={convVolume} 
-                xField="period" 
-                yField="count"
-                height={300}
-              />
+              <BarChart data={convVolume} xField='period' yField='count' height={300} />
             )}
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader>
             <CardTitle>Average Duration</CardTitle>
@@ -769,18 +764,13 @@ export const AnalyticsDashboard = () => {
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <div className="h-[300px] flex items-center justify-center">Loading...</div>
+              <div className='h-[300px] flex items-center justify-center'>Loading...</div>
             ) : (
-              <LineChart 
-                data={convDurations} 
-                xField="period" 
-                yField="average_duration"
-                height={300}
-              />
+              <LineChart data={convDurations} xField='period' yField='average_duration' height={300} />
             )}
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader>
             <CardTitle>Conversation Outcomes</CardTitle>
@@ -788,14 +778,9 @@ export const AnalyticsDashboard = () => {
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <div className="h-[300px] flex items-center justify-center">Loading...</div>
+              <div className='h-[300px] flex items-center justify-center'>Loading...</div>
             ) : (
-              <PieChart 
-                data={convOutcomes} 
-                nameField="outcome"
-                valueField="count"
-                height={300}
-              />
+              <PieChart data={convOutcomes} nameField='outcome' valueField='count' height={300} />
             )}
           </CardContent>
         </Card>

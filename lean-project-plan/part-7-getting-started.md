@@ -4,66 +4,70 @@
 
 #### Environment Setup
 
-- [ ] Install Node.js (v18+)
-- [ ] Install npm or yarn
-- [ ] Install Python (v3.10+)
-- [ ] Install Poetry or pip for Python dependency management
-- [ ] Install Git
-- [ ] Configure IDE (VS Code recommended)
-- [ ] Install recommended extensions:
-  - [ ] ESLint
-  - [ ] Prettier
-  - [ ] Tailwind CSS IntelliSense
-  - [ ] Python
-  - [ ] Pylance
-  - [ ] Black Formatter
+- [x] Install Node.js (v18+)
+- [x] Install npm or yarn
+- [x] Install Python (v3.10+)
+- [x] Install Poetry or pip for Python dependency management
+- [x] Install Git
+- [x] Configure IDE (VS Code recommended)
+- [x] Install recommended extensions:
+  - [x] ESLint
+  - [x] Prettier
+  - [x] Tailwind CSS IntelliSense
+  - [x] Python
+  - [x] Pylance
+  - [x] Black Formatter
 
 #### Open-Source LLM Setup
 
-- [ ] Install Ollama (for LLM inference)
+- [x] Install Ollama (for LLM inference)
   ```bash
-  # MacOS/Linux
-  curl -fsSL https://ollama.com/install.sh | sh
-  
-  # Windows (using WSL2 or Docker)
-  # See https://ollama.com/download/windows
+  # MacOS
   ```
 
-- [ ] Pull required models
-  ```bash
-  # Pull Llama 3 8B model (most balanced for performance/quality)
-  ollama pull llama3
-  
-  # OR Pull Mixtral 8x7B for potentially better quality
-  ollama pull mixtral
-  
-  # OR Pull Phi-2 for lightweight applications
-  ollama pull phi
-  ```
+# See https://ollama.com/download/mac
 
-- [ ] Test Ollama installation
+# Windows (using WSL2 or Docker)
+
+# See https://ollama.com/download/windows
+
+````
+
+- [x] Pull required models
+```bash
+# Pull Llama 3 8B model (most balanced for performance/quality)
+ollama pull llama3.2
+
+# OR Pull Mixtral 8x7B for potentially better quality
+ollama pull mixtral
+
+# OR Pull Phi-2 for lightweight applications
+ollama pull phi
+````
+
+- [x] Test Ollama installation
   ```bash
   # Verify Ollama is working
-  ollama run llama3 "Hello, I'm testing my installation"
+  ollama run llama3.2 "Hello, I'm testing my installation"
   ```
 
 #### Project Initialization
 
-- [ ] Clone the repository
+- [x] Clone the repository
 
   ```bash
   git clone https://github.com/your-org/Intuitive.git
   cd Intuitive
   ```
 
-- [ ] Set up frontend dependencies
+- [x] Set up frontend dependencies
 
   ```bash
   cd frontend
   npm install
   ```
 
-- [ ] Set up Python backend dependencies
+- [x] Set up Python backend dependencies
 
   ```bash
   cd ../backend
@@ -88,7 +92,7 @@
   # - NEXT_PUBLIC_SUPABASE_ANON_KEY
   # - NEXT_PUBLIC_API_URL (Python backend URL)
   # - OLLAMA_BASE_URL (default: http://localhost:11434)
-  # - OLLAMA_MODEL (default: llama3)
+  # - OLLAMA_MODEL (default: llama3.2)
   # - SUPABASE_SERVICE_KEY
   ```
 
@@ -156,7 +160,7 @@
     npm install -g vercel
     # For GitHub Pages, no CLI needed
     ```
-  - [ ] Configure environment variables 
+  - [ ] Configure environment variables
   - [ ] Run a preview deployment
   - [ ] Test preview deployment thoroughly
   - [ ] Deploy to production
@@ -175,6 +179,7 @@
     - [ ] Install Docker
     - [ ] Deploy using Docker Compose
   - [ ] Create Dockerfile for Python backend
+
     ```Dockerfile
     FROM python:3.10-slim
 
@@ -193,36 +198,37 @@
 - [ ] LLM Deployment
 
   - [ ] Option 1: VM with Ollama (Oracle Cloud VM)
+
     ```bash
     # Install Ollama
     curl -fsSL https://ollama.com/install.sh | sh
-    
+
     # Pull models
-    ollama pull llama3
-    
+    ollama pull llama3.2
+
     # Create systemd service
     sudo nano /etc/systemd/system/ollama.service
-    
+
     # Add service configuration
     [Unit]
     Description=Ollama Service
     After=network.target
-    
+
     [Service]
     Type=simple
     User=ubuntu
     WorkingDirectory=/home/ubuntu
     ExecStart=/usr/local/bin/ollama serve
     Restart=on-failure
-    
+
     [Install]
     WantedBy=multi-user.target
-    
+
     # Enable and start service
     sudo systemctl enable ollama
     sudo systemctl start ollama
     ```
-  
+
   - [ ] Option 2: HuggingFace Inference Endpoints (Free Tier)
     - [ ] Create HuggingFace account
     - [ ] Use free inference API with rate limits
@@ -306,7 +312,7 @@ Intuitive/
 │   │   ├── api/                      # API endpoints
 │   │   │   ├── routes/               # Route definitions
 │   │   │   │   ├── conversations.py  # Conversation endpoints
-│   │   │   │   ├── agents.py         # Agent configuration endpoints 
+│   │   │   │   ├── agents.py         # Agent configuration endpoints
 │   │   │   │   ├── voice.py          # Voice processing endpoints
 │   │   │   │   └── webhooks.py       # Webhook handlers
 │   │   │   └── deps.py               # Dependency injection
@@ -454,7 +460,7 @@ journalctl -u ollama -f        # Linux
 
 - Monitor token generation speed (tokens/second)
 - Track memory usage during inference
-- Measure response latency 
+- Measure response latency
 - Test different models and configurations
 - Consider model quantization (GGUF format)
 - Implement streaming responses for better UX

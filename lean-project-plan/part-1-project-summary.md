@@ -52,7 +52,7 @@ To keep costs minimal while building a functional MVP, we'll leverage:
                               │
                               ↓
                        ┌───────────────────┐
-                       │  Ollama + Llama3  │
+                       │  Ollama + Llama3.2│
                        │  (Open-Source LLM)│
                        └───────────────────┘
                               ↑
